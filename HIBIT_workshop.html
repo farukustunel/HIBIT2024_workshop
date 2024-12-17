@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>High Performance Computing   (HPC) Systems</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Faruk Üstünel" />
+    <script src="HIBIT_workshop_files/header-attrs-2.29/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# High Performance Computing <br> (HPC) Systems
+]
+.author[
+### Faruk Üstünel
+]
+.institute[
+### HIBIT 2024, Bezmialem Vakıf University
+]
+.date[
+### 18/12/2024, 13.30
+]
+
+---
+
+
+
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 250px;
+height: 128px;
+z-index: 0;
+background-image: url(./HIBIT2024.jpeg);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+bottom:-2.5em;left:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('div')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = null
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+# Welcome and Introduction
+
+--
+
+**Overview:**
+
+--
+
+- What HPC is and why it is essential.
+
+--
+  
+- How HPC systems differ from regular computing environments.
+
+--
+  
+- Applications of HPC.
+
+--
+  
+- Practical demonstrations on job submission to HPC systems.
+
+---
+
+# What is HPC?
+
+--
+
+There is no clear definition!
+
+--
+
+Some of them are:
+
+- Systems that combine multiple processors to perform large-scale computations.
+- Computing on high performance computers
+- Solving problems/doing research using computer modeling, simulation and analysis.
+
+--
+
+**Simply**: Solving bigger problems, faster, with better answers.
+
+--
+
+**How?**: Integrating many processors, memories and storage devices to act as one powerful system.
+
+---
+
+# Why is HPC necessary? 
+
+**Comupter technology gets faster and better**:
+
+--
+
+- *Processors* are getting more powerful (Moore's Law)
+- *Memory speeds* and capacities are increasing
+- *Disk speeds and capacity* are also increasing
+
+--
+
+**However**:
+
+- *Big simulation* problems are much bigger than any standart server can compute
+- *Big Data* is too large for personal computers that can hold
+
+---
+# BIG Data &amp; Compute Problems?
+--
+
+- Oil &amp; Gas Industry (Seismic Sampling)
+  &lt;img src="./static/oil-rig.png" width="8%" height="8%" style="margin: 0 10px;"&gt;
+
+--
+
+- Weather Research
+  &lt;img src="./static/weather.png" width="8%" height="8%" style="margin: 0 10px;"&gt;
+  
+--
+
+- Particle Physics (Higgs Boson particle)
+  &lt;img src="./static/higgs.png" width="8%" height="8%" style="margin: 0 10px;"&gt;
+  
+--
+
+- Healtcare/Life Sciences (e.g. Bioinformatics)
+  &lt;img src="./static/science.png" width="8%" height="8%" style="margin: 0 10px;"&gt;
+  
+---
+
+# What are the components of HPC?
+
+--
+
+Key Components of HPC Systems:
+
+--
+
+**Cluster**: Group of machines interconnected each other and work together.
+  - Node: Individual machine in a cluster.
+  - Login/Head/Master Node: Providing user an environment to distrubute their task.
+  - Compute Nodes: Used for running jobs assigned to them by head node.
+  
+--
+
+**Other parts**:
+  - Interconnects: High-speed networking for communication.
+  - Storage: Managing massive amounts of data.
+
+--
+
+**How HPC Differs from Regular Computing**:
+  - Performance (petaflops vs. gigaflops).
+  - Scalability (handle tasks that exceed standard computer capabilities).
+
+---
+
+# What are the components of HPC?
+
+--
+
+&lt;div style="text-align: center;"&gt;
+  &lt;img src="./static/hpc.jpeg" width="50%" height="50%"&gt;
+&lt;/div&gt;
+
+---
+
+# When do we need HPC?
+
+**Case 1**:
+  
+--
+  
+  - Automotive Engineer
+  - Need to design new car that consumes less gasoline
+  - He'd rather have the desing in 6 months rather than in 2 years
+  - He will test the design using computer simulations rather than building expensive prototype
+
+--
+  
+**Case 2**:
+
+--
+  
+  - Engineer at amazon.com
+  - Their web server and databases should handle 1,000 hits per second so that customers do not experience bad delays
+  - Web server and databases should be in HPC environment
+  
+--
+
+**Case 3**:
+
+--
+  
+  - Scientist at the Human Genome Project
+  - He/she needed to process terabytes of genetic data in parallel
+  - The analysis conducted in an HPC environment
+
+---
+# Top 5 Supercomputers
+
+--
+| Rank | System                                                                                                  | Cores     | Rmax (PFlop/s) | Rpeak (PFlop/s) | Power (kW) | Location                                           |
+|------|---------------------------------------------------------------------------------------------------------|-----------|----------------|-----------------|------------|---------------------------------------------------|
+| 1    | El Capitan | 11,039,616 | 1,742.00       | 2,746.38       | 29,581     | DOE/NNSA/LLNL, United States                     |
+| 2    | Frontier | 9,066,176  | 1,353.00       | 2,055.72       | 24,607     | DOE/SC/Oak Ridge National Laboratory, United States |
+| 3    | Aurora | 9,264,128  | 1,012.00       | 1,980.01       | 38,698     | DOE/SC/Argonne National Laboratory, United States |
+| 4    | Eagle | 2,073,600  | 561.20         | 846.84         | N/A        | Microsoft Azure, United States                   |
+| 5    | HPC6  | 3,143,520  | 477.90         | 606.97         | 8,461      | Eni S.p.A., Italy                                |
+--
+
+**Reference:** Data adapted from the latest *Top500 List* (December 2024). For more information, visit [top500.org](https://www.top500.org).
+
+---
+
+## How Does HPC Work?
+
+- **Parallel Computing:** Breaking tasks into smaller problems solved concurrently.
+
+&lt;div style="text-align: center;"&gt;
+  &lt;img src="./static/parallel.png" width="50%" height="50%"&gt;
+&lt;/div&gt;
+
+--
+
+- *Why use parallel computing?*
+  - Save time and money
+  - Solve larger and more complex problems
+
+---
+
+## How Does HPC Work?
+
+--
+
+- Scheduling and Resource Allocation:
+  - Jobs submitted via a scheduler (e.g., SLURM, PBS).
+  - Queueing and priority-based execution.
+--
+&lt;div style="text-align: center;"&gt;
+  &lt;img src="./static/pbs.jpg" width="75%" height="20%"&gt;
+&lt;/div&gt;
+
+---
+
+# Demonstration: Job Submission to HPC
+
+
+``` bash
+# Connect to the server
+ssh faruk@10.100.9.30
+
+# Submit your job to PBS schedular
+qsub submission.sh
+
+# Check the status of the job
+qstat
+```
+
+---
+
+# Future of HPC and How to Get Started
+
+--
+
+- Trends: AI integration, quantum computing, exascale computing.
+
+--
+
+- Getting Started:
+  - Learn basic Linux commands. 
+  &lt;img src="./static/linux.png" width="8%" height="8%" style="margin: -5px 10px;"&gt;
+  - Explore programming tools: Python, MPI, OpenMP. 
+  &lt;img src="./static/python.png" width="8%" height="8%" style="margin: 5px 10px;"&gt;
+  - Join open-access HPC programs (e.g. PRACE). 
+  &lt;img src="./static/prace.png" width="8%" height="12%" style="margin: 20px 10px 12px;"&gt;
+  
+---
+
+&lt;div style="text-align: center; margin-top: 10%; margin-bottom: 10%;"&gt;
+  &lt;img src="./static/Q&amp;A.png" width="40%" height="40%"&gt;
+&lt;/div&gt;
+
+---
+
+&lt;div style="text-align: center; margin-top: 10%; margin-bottom: 10%;"&gt;
+  &lt;img src="./static/thank-you.png" width="40%" height="40%"&gt;
+&lt;/div&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:10",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
